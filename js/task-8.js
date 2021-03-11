@@ -2,6 +2,8 @@ import galleryItems from './gallery-items.js';
 
 const galleryRef = document.querySelector('.js-gallery');
 
+const arrOfImg = [];
+
 const galleryMarkup = createGalleryItemsMarkup(galleryItems);
 galleryRef.insertAdjacentHTML('beforeend', galleryMarkup);
 
@@ -13,16 +15,18 @@ const overlayRef = galleryModalRef.querySelector ('.lightbox__overlay');
 galleryRef.addEventListener('click', onGalleryElementClick);   
 
 function createGalleryItemsMarkup(galleryItems) {
-    return galleryItems.map(({ preview, original, description}, index) => {
+    const markup = galleryItems.map(({ preview, original, description }, index) => {
+       arrOfImg.push(original);
         return `<li class="gallery__item">
         <a class="gallery__link" href="${original}">
             <img class="gallery__image" src="${preview}"
-                data-source="${original}" data-index="${index+1}" alt="${description}" />
+                data-source="${original}" data-index="${index}" alt="${description}" />
         </a>
     </li>`;
     })
         .join('');
-};
+    return (markup);
+  };
 
 function onGalleryElementClick(event) {
     event.preventDefault('');
@@ -58,14 +62,22 @@ function onCloseBtnClick(event) {
 
 function onArrowLeftClick(event) {
     let number = Number(galleryModalImgRef.dataset.index);
+    console.log(number);
+    number -= 1; 
+    console.log(number);
+    galleryModalImgRef.dataset.index = number;
     galleryModalImgRef.src = '';
-    galleryModalImgRef.src = galleryItems[number - 2].original;
+    galleryModalImgRef.src = arrOfImg[number];
     return;
 }
 
 function onArrowRightClick(event) {
     let number = Number(galleryModalImgRef.dataset.index);
+    console.log(number);
+    number += 1; 
+    console.log(number);
+    galleryModalImgRef.dataset.index = number;
     galleryModalImgRef.src = '';
-    galleryModalImgRef.src = galleryItems[number + 2].original;
+    galleryModalImgRef.src = arrOfImg[number];
     return;
 }
