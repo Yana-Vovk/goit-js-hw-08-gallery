@@ -57,6 +57,8 @@ function onCloseBtnClick(event) {
     galleryModalImgRef.src = '';
     closeBtnRef.removeEventListener('click', onCloseBtnClick);
     window.removeEventListener('keydown', onCloseBtnClick);
+     window.removeEventListener('keydown', onArrowLeftClick);
+      window.removeEventListener('keydown', onArrowRightClick);
     overlayRef.removeEventListener('click', onCloseBtnClick);
 }
 
