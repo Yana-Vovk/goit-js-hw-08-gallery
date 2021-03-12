@@ -67,9 +67,8 @@ function onArrowLeftClick(event) {
     console.log(number);
     number -= 1; 
     console.log(number);
-    galleryModalImgRef.dataset.index = number;
-    galleryModalImgRef.src = '';
-    galleryModalImgRef.src = arrOfImg[number];
+    if (number < 0) number = galleryItems.length - 1;
+    updateModal(number);
     return;
 }
 
@@ -78,8 +77,13 @@ function onArrowRightClick(event) {
     console.log(number);
     number += 1; 
     console.log(number);
-    galleryModalImgRef.dataset.index = number;
-    galleryModalImgRef.src = '';
-    galleryModalImgRef.src = arrOfImg[number];
+    if (number > galleryItems.length - 1) number = 0;
+   updateModal(number);
     return;
+}
+
+function updateModal(number) {
+galleryModalImgRef.dataset.index = number;
+galleryModalImgRef.src = "";
+galleryModalImgRef.src = arrOfImg[number];
 }
