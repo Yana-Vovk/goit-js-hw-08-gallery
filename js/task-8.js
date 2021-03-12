@@ -42,6 +42,7 @@ function onGalleryElementClick(event) {
     closeBtnRef.addEventListener('click', onCloseBtnClick);
 
     window.addEventListener('keydown', (event) => {
+        console.log(event.code);
         if (event.code === 'Escape') onCloseBtnClick();
         if (event.code === 'ArrowLeft') onArrowLeftClick();
         if (event.code === 'ArrowRight') onArrowRightClick();
