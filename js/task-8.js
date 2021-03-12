@@ -41,25 +41,29 @@ function onGalleryElementClick(event) {
 
     closeBtnRef.addEventListener('click', onCloseBtnClick);
 
-    window.addEventListener('keydown', (event) => {
-        console.log(event.code);
-        if (event.code === 'Escape') onCloseBtnClick();
-        if (event.code === 'ArrowLeft') onArrowLeftClick();
-        if (event.code === 'ArrowRight') onArrowRightClick();
-    });
+    window.addEventListener('keydown', onKeyPress);
 
     overlayRef.addEventListener('click', (event) => {
         if (event.currentTarget === event.target) onCloseBtnClick()
     });
 }
 
+function onKeyPress(event) {
+    if (galleryModalRef.classList.contains('is-open')) {
+        if (event.code === 'Escape') onCloseBtnClick();
+        if (event.code === 'ArrowLeft') onArrowLeftClick();
+        if (event.code === 'ArrowRight') onArrowRightClick();
+    }
+}
+
 function onCloseBtnClick(event) {
     galleryModalRef.classList.remove('is-open');
     galleryModalImgRef.src = '';
+    galleryModalImgRef.dataset.index = '';
     closeBtnRef.removeEventListener('click', onCloseBtnClick);
     window.removeEventListener('keydown', onCloseBtnClick);
-     window.removeEventListener('keydown', onArrowLeftClick);
-      window.removeEventListener('keydown', onArrowRightClick);
+    window.removeEventListener('keydown', onArrowLeftClick);
+    window.removeEventListener('keydown', onArrowRightClick);
     overlayRef.removeEventListener('click', onCloseBtnClick);
 }
 
